@@ -3,6 +3,7 @@ package com.example.advermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -47,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"时间不能为空",Toast.LENGTH_SHORT).show();
                     }else{
                         int time=new Integer(time_interval.getText().toString()).intValue();
-                        Toast.makeText(MainActivity.this,"文件路径为："+filepath+" 时间间隔为："+time+"秒",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"文件路径为："+filepath+" 时间间隔为："+time+"秒",Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(MainActivity.this, OptionActivity.class);
+                        SharepreferenceUtils sharepreferenceUtils=new SharepreferenceUtils(MainActivity.this,"picInfo");
+                        sharepreferenceUtils.edit(filepath,time);
+                        startActivity(intent);
                     }
                 }
             }

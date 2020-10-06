@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.advermission.MainActivity;
+import com.example.advermission.OptionActivity;
 
 /**
  * 使用广播实现开机自启动
@@ -22,7 +23,7 @@ public class BoostCompleteReceiver extends BroadcastReceiver {
          * 如果 系统 启动的消息，则启动 APP 主页活动
          */
         if (intent.getAction() .equals(Intent.ACTION_BOOT_COMPLETED) ) {
-            Intent intentMainActivity = new Intent(context, MainActivity.class);
+            Intent intentMainActivity = new Intent(context, OptionActivity.class);
             intentMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intentMainActivity);
             Toast.makeText(context, "开机完毕~", Toast.LENGTH_LONG).show();

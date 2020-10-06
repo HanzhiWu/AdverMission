@@ -87,20 +87,9 @@ public class FolderChooserActivity extends AppCompatActivity {
 
 
         isFolderChooser = getIntent().getBooleanExtra("isFolderChooser", false);
-        String file_path = getIntent().getStringExtra("file_path");
+        //String file_path = getIntent().getStringExtra("file_path");
+        String file_path = "/storage/emulated/0/";
         singleThreadExecutor = Executors.newSingleThreadExecutor();
-//        /**
-//         * 数据的持续化存储
-//         */
-//        SharedPreferences sp = this.getSharedPreferences("dqcao", MODE_PRIVATE);
-//        //获取到编辑对象
-//        SharedPreferences.Editor edit = sp.edit();
-//        //添加新的值，可见是键值对的形式添加
-//        edit.putString("filePath", file_path);
-//        edit.putInt("interval", 2000);
-//        //提交.
-//        edit.apply();
-
         mInitialPath = file_path == null ? mInitialPath : file_path;
         parentFolder = new File(mInitialPath);
         initView();
