@@ -1,8 +1,10 @@
 package com.example.advermission.FolderChooserActivity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -18,10 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.advermission.OptionActivity;
 import com.example.advermission.R;
 
 import java.io.File;
@@ -84,16 +89,16 @@ public class FolderChooserActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fold_chooser);
+            isFolderChooser = getIntent().getBooleanExtra("isFolderChooser", false);
+            //String file_path = getIntent().getStringExtra("file_path");
+            String file_path = "/storage/emulated/0/";
+            singleThreadExecutor = Executors.newSingleThreadExecutor();
+            mInitialPath = file_path == null ? mInitialPath : file_path;
+            parentFolder = new File(mInitialPath);
+            initView();
+            setData();
 
 
-        isFolderChooser = getIntent().getBooleanExtra("isFolderChooser", false);
-        //String file_path = getIntent().getStringExtra("file_path");
-        String file_path = "/storage/emulated/0/";
-        singleThreadExecutor = Executors.newSingleThreadExecutor();
-        mInitialPath = file_path == null ? mInitialPath : file_path;
-        parentFolder = new File(mInitialPath);
-        initView();
-        setData();
     }
 
     private void setData(){

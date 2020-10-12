@@ -18,9 +18,15 @@ public class SharepreferenceUtils {
         editor.apply();
     }
     public String getFilePath(){
-        return sharedPreferences.getString("filePath",null);
+        if(sharedPreferences.contains("filePath"))
+            return sharedPreferences.getString("filePath",null);
+        else
+            return "/storage/emulated/0/";
     }
     public int getTime(){
-        return sharedPreferences.getInt("time_interval",0);
+        if(sharedPreferences.contains("time_interval"))
+            return sharedPreferences.getInt("time_interval",0);
+        else
+            return 0;
     }
 }

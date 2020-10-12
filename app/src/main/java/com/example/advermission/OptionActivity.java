@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Path;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -37,16 +39,15 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_option );
         mBanner = findViewById( R.id.banner );
-        mBanner.setOnClickListener(new View.OnClickListener() {
+        mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
-            public void onClick(View view) {
+            public void OnBannerClick(int position) {
                 Intent intent=new Intent(OptionActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
         initData();
         initView();
-
     }
     private void initView() {
         mBanner = findViewById( R.id.banner );
@@ -86,8 +87,22 @@ public class OptionActivity extends AppCompatActivity {
                 while (mCursor.moveToNext()) {
                     String displayName = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
                     Uri uri = getUriFromPath(filePath + "/" + displayName);
-                    Log.i("getFileName", uri.toString());
-                    images.add(uri.toString());
+//                    try{
+//                        if(uri!=null)
+//                        images.add(uri.toString());
+//                        else{
+//                            Resources.NotFoundException e = new Resources.NotFoundException();
+//                            throw e;
+//                        }
+//                    }catch (Resources.NotFoundException e){
+//                        Toast.makeText(OptionActivity.this,"没找到对应资源",Toast.LENGTH_SHORT).show();
+//                    }
+                    if(uri==null){
+                        continue;
+                    }else{
+                        images.add(uri.toString());
+                    }
+
                 }
             } else {
                 Log.i("Error", "-->mCursor is null");
